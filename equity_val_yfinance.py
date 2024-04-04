@@ -5,12 +5,9 @@ import pandas as pd
 import datetime as dt
 import matplotlib.pyplot as plt
 import asyncio
-from pyppeteer import launch
 import numpy as np
 import requests
 from bs4 import BeautifulSoup
-from statsmodels.regression.linear_model import OLS
-from statsmodels.tools.tools import add_constant
 # import equity_val_edgar as evedgar
 
 stock = "WMG"
@@ -128,9 +125,9 @@ print()
 # april presentation of AswathGPT
 # Volatility and Risk Institute — AI conference with Vasant Dhar
 
-print(info)
+print("\n"+str(info))
 
-print(exchange)
+print("\n"+str(exchange))
 
 us_exchange_codes = {
     'NYQ' : ['NYSE', '^NYA'],
@@ -139,6 +136,8 @@ us_exchange_codes = {
     'NCM' : ['NASDAQ Capital Market', '^IXIC'],
     'ASE' : ['NYSE American', '^XAX'], #NYSE American
 } # https://www.sec.gov/files/company_tickers_exchange.json
+
+# (NONE) (NYSE) (NASDAQ) (CHX) (BOX) (BX) (C2) (CBOE) (CboeBYX) (CboeBZX) (CboeEDGA) (CboeEDGX) (GEMX) (IEX) (ISE) (MIAX) (MRX) (NYSEAMER) (NYSEArca) (NYSENAT) (PEARL) (Phlx) 
 
 market_index = str(us_exchange_codes[exchange][1])
 market_ticker = yf.Ticker(market_index)
@@ -153,7 +152,7 @@ covariance = np.cov(market_returns.dropna().values, returns.dropna().values)[0, 
 
 levered_beta = covariance/variance_returns
 
-print("Beta: " + str(levered_beta))
+print("\nBeta: " + str(levered_beta))
 
 # best way to do this is to get the 
 
@@ -237,7 +236,7 @@ def display_graphs():
 
 # print(bond_data)
 
-# display_graphs()
+display_graphs()
 
 us_bond_yield = bond_data.loc[bond_data['Country'] == 'United States', '10yr Bond Yield'].values[0]
 
@@ -265,7 +264,6 @@ erm = expected_market_return()
 us_mature_erp = erm - us_bond_yield
 
 print(us_mature_erp)
-
 
 # look at ValUGQuiz1aSpr24soln
 # next step is to get all the revenues by country, calculate the weights of each country's revenues
